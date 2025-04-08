@@ -1,0 +1,16 @@
+#include "imports/stdlib.fc";
+
+() recv_internal(int my_balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    slice cs = in_msg_full.begin_parse();
+    int flags = cs~load_uint(4); ;; first 4 bits are flags, pointer moves to next 4 bits
+    slice sender_address = cs~load_msg_addr(); ;; next 32 bytes are sender address, pointer moves to next 4 bytes
+
+    set_data(begin_cell().store_slice(sender_address).end_cell());
+}
+
+slice get_the_latest_sender() method_id {
+    cell data = get_data();
+    slice cs = data.begin_parse();
+    slice sender_address = cs~load_msg_addr();
+    return sender_address;
+}

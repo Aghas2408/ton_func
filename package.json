@@ -1,0 +1,19 @@
+{
+  "name": "ton_func",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@swc/core": "^1.11.18",
+    "@ton-community/func-js": "^0.9.1",
+    "@types/node": "^22.14.0",
+    "ton-core": "^0.53.0",
+    "ton-crypto": "^3.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "compile": "ts-node --esm ./scripts/compile.ts"
+  }
+}
