@@ -4,6 +4,9 @@ import { getHttpV4Endpoint } from "@orbs-network/ton-access";
 import { TonClient4, toNano } from "ton";
 import qs from "qs";
 import qrcode from "qrcode-terminal";
+import dotenv from "dotenv"
+dotenv.config();
+
 
 async function onchainTestScript() {
     const codeCell = Cell.fromBoc(Buffer.from(hex, "hex"))[0];
@@ -15,7 +18,7 @@ async function onchainTestScript() {
     });
 
     const endpoint = await getHttpV4Endpoint({
-        network: "testnet",
+        network: process.env.TESTNET ? "testnet" : "mainnet",
     });
     const client4 = new TonClient4({ endpoint });
 
@@ -28,9 +31,9 @@ async function onchainTestScript() {
     }
 
     let link =
-        `https://tonhub.com/transfer/` +
+        `https://${process.env.TESTNET ? "test." : ""}tonhub.com/transfer/` +
         address.toString({
-            testOnly: true,
+            testOnly: process.env.TESTNET ? true : false,
         }) +
         "?" +
         qs.stringify({
